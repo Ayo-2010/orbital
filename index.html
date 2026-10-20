@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Orbital — Flight Dynamics Drafting Desk</title>
+<meta name="description" content="A 1960s flight-dynamics drafting desk for planning circular orbits, tracking satellites and reading the next pass schedule.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="desk">
+<main class="sheet">
+
+<header class="masthead">
+  <div class="ident">
+    <p class="kicker">MSC · FLIGHT DYNAMICS BRANCH · WORKSHEET FD-417</p>
+    <h1>Orbital</h1>
+    <p class="subtitle">Circular orbit solutions for tracked vehicles and launch windows</p>
+  </div>
+  <dl class="meta">
+    <div><dt>GMT</dt><dd id="clock">--:--:--</dd></div>
+    <div><dt>Drawn</dt><dd>20 OCT 1966</dd></div>
+    <div><dt>Sheet</dt><dd>1 OF 1</dd></div>
+    <div><dt>Rev</dt><dd>C</dd></div>
+  </dl>
+  <div class="stamp" aria-hidden="true">
+    <span>Flight Dynamics</span>
+    <strong>Approved</strong>
+    <span>14 JUL 1966 · FDB</span>
+  </div>
+</header>
+
+<section class="workspace">
+
+  <section class="plot" aria-labelledby="plotTitle">
+    <div class="panel-head">
+      <h2 id="plotTitle"><span>01</span> Orbit geometry</h2>
+      <p class="panel-note">FIG. 1 · PLANE PROJECTION · SCHEMATIC</p>
+    </div>
+    <div class="plot-frame">
+      <svg id="orbitSvg" viewBox="0 0 900 570" role="img" aria-labelledby="svgTitle svgDesc">
+        <title id="svgTitle">Orbital plane diagram</title>
+        <desc id="svgDesc">A circular orbit drawn around Earth. The ellipse grows with altitude and rotates with inclination.</desc>
+        <defs>
+          <pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="0" y2="7" stroke="#1d3f95" stroke-width="0.7" opacity="0.45"></line>
+          </pattern>
+          <marker id="dimArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+            <path d="M0 0 L10 5 L0 10 Z" fill="#cf3f17"></path>
+          </marker>
+          <marker id="flowArrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0 0 L10 5 L0 10 Z" fill="#cf3f17"></path>
+          </marker>
+        </defs>
+
+        <g class="axis-lines" aria-hidden="true">
+          <line x1="18" y1="285" x2="882" y2="285"></line>
+          <line x1="450" y1="24" x2="450" y2="546"></line>
+        </g>
+
+        <g class="frame-notes" aria-hidden="true">
+          <text x="22" y="30">FIG. 1 — CIRCULAR ORBIT / PLANE PROJECTION</text>
+          <text x="878" y="30" text-anchor="end">SCALE: SCHEMATIC</text>
+          <text x="22" y="556">FD-417 / SHEET 1</text>
+          <text x="878" y="556" text-anchor="end">DRAWN FDB · 1966</text>
+          <path d="M22 42 H70" class="tick-rule"></path>
+          <path d="M830 42 H878" class="tick-rule"></path>
+          <path d="M22 536 H58" class="tick-rule"></path>
+          <path d="M842 536 H878" class="tick-rule"></path>
+        </g>
+
+        <g class="shell-rings" aria-hidden="true">
+          <circle cx="450" cy="285" r="118" class="ring"></circle>
+          <circle cx="450" cy="285" r="174" class="ring"></circle>
+          <circle cx="450" cy="285" r="230" class="ring"></circle>
+          <text x="450" y="162" text-anchor="middle" class="ring-label">LEO</text>
+          <text x="450" y="106" text-anchor="middle" class="ring-label">MEO</text>
+          <text x="450" y="50" text-anchor="middle" class="ring-label">GEO</text>
+        </g>
+
+        <g id="planeGroup">
+          <ellipse id="orbitGhost" cx="450" cy="285" rx="152" ry="62"></ellipse>
+          <ellipse id="orbitPath" cx="450" cy="285" rx="150" ry="60"></ellipse>
+          <path id="orbitLead" d=""></path>
+          <line id="dimLine" x1="508" y1="285" x2="600" y2="285" marker-end="url(#dimArrow)"></line>
+          <line id="dimTick" x1="600" y1="276" x2="600" y2="294"></line>
+          <text id="dimLabel" x="554" y="277" text-anchor="middle" class="dim-label">r 6 779 km</text>
+          <g id="satGroup" transform="translate(600 285)">
+            <g id="satGlyph">
+              <circle r="15" class="sat-halo"></circle>
+              <rect x="-24" y="-3" width="16" height="6" class="sat-panel"></rect>
+              <rect x="8" y="-3" width="16" height="6" class="sat-panel"></rect>
+              <rect x="-7" y="-5" width="14" height="10" class="sat-body"></rect>
+              <circle cx="0" cy="0" r="2" class="sat-eye"></circle>
+            </g>
+          </g>
+        </g>
+
+        <g class="earth" aria-hidden="true">
+          <circle cx="450" cy="285" r="66" class="atmosphere"></circle>
+          <circle cx="450" cy="285" r="58" class="globe"></circle>
+          <circle cx="450" cy="285" r="58" fill="url(#hatch)" opacity="0.9"></circle>
+          <path d="M392 285 Q450 258 508 285" class="globe-line"></path>
+          <path d="M450 227 Q427 285 450 343" class="globe-line"></path>
+          <line x1="392" y1="285" x2="508" y2="285" class="globe-axis"></line>
+          <line x1="450" y1="227" x2="450" y2="343" class="globe-axis"></line>
+          <text x="450" y="358" text-anchor="middle" class="globe-label">EARTH · 6371 KM</text>
+        </g>
+
+        <g class="callouts" aria-hidden="true">
+          <g transform="translate(22 62)">
+            <rect x="0" y="-9" width="3" height="34" class="cal-bar"></rect>
+            <text x="11" y="0" class="cal-label">ALTITUDE</text>
+            <text x="11" y="20" class="cal-value" id="calAlt">408 KM</text>
+          </g>
+          <g transform="translate(878 62)" text-anchor="end">
+            <rect x="-3" y="-9" width="3" height="34" class="cal-bar"></rect>
+            <text x="-11" y="0" class="cal-label">INCLINATION</text>
+            <text x="-11" y="20" class="cal-value" id="calInc">51.6°</text>
+          </g>
+          <g transform="translate(22 508)">
+            <rect x="0" y="-9" width="3" height="34" class="cal-bar"></rect>
+            <text x="11" y="0" class="cal-label">PERIOD</text>
+            <text x="11" y="20" class="cal-value" id="calPeriod">92.7 MIN</text>
+          </g>
+          <g transform="translate(878 508)" text-anchor="end">
+            <rect x="-3" y="-9" width="3" height="34" class="cal-bar"></rect>
+            <text x="-11" y="0" class="cal-label">VELOCITY</text>
+            <text x="-11" y="20" class="cal-value" id="calVel">7.66 KM/S</text>
+          </g>
+        </g>
+
+        <g id="stationMark" class="station" aria-hidden="true">
+          <path d="M450 514 l-7 12 h14 Z"></path>
+          <text x="450" y="540" text-anchor="middle">STN 41°N</text>
+        </g>
+        <text id="planeAnnotation" x="450" y="393" text-anchor="middle" class="plane-note">PLANE θ 51.6° / EQUATOR</text>
+      </svg>
+      <p class="plot-caption">
+        <span>TRACK</span>
+        <strong id="plotName">ISS / ZARYA</strong>
+        <span id="plotMeta">408 KM · θ 51.6°</span>
+      </p>
+    </div>
+
+    <div class="controls">
+      <div class="control">
+        <div class="control-head">
+          <label for="altitude">Altitude above datum <em>km</em></label>
+          <output id="altOut" for="altitude">408</output>
+        </div>
+        <input type="range" id="altitude" min="160" max="40000" step="1" value="408">
+        <div class="scale"><span>160</span><span>20 000</span><span>40 000</span></div>
+      </div>
+      <div class="control">
+        <div class="control-head">
+          <label for="inclination">Inclination to equator <em>deg</em></label>
+          <output id="incOut" for="inclination">51.6</output>
+        </div>
+        <input type="range" id="inclination" min="0" max="180" step="0.1" value="51.6">
+        <div class="scale"><span>0</span><span>90</span><span>180</span></div>
+      </div>
+    </div>
+    <p class="hand-note">orbit drawn as a plane projection — radius scaled non-linearly for legibility</p>
+  </section>
+
+  <aside class="console" aria-label="Mission console">
+    <section class="window-card" aria-labelledby="windowHeading">
+      <div class="window-top">
+        <p class="tag" id="windowHeading">Launch window</p>
+        <p class="window-go" id="windowGo">T−</p>
+      </div>
+      <p class="countdown" id="countdown">--:--:--</p>
+      <p class="window-label" id="windowLabel">TO WINDOW OPEN</p>
+      <div class="window-foot">
+        <p class="window-when"><span id="windowDate">--</span><br><span id="windowWhen">--</span></p>
+        <button id="resync" class="btn btn-paper" type="button">Re-sync target</button>
+      </div>
+    </section>
+
+    <section class="solution" aria-labelledby="solutionHeading">
+      <h2 id="solutionHeading"><span>02</span> Solution</h2>
+      <dl class="readouts">
+        <div><dt>Period</dt><dd id="periodOut">--</dd></div>
+        <div><dt>Velocity</dt><dd id="velocityOut">--</dd></div>
+        <div><dt>Semi-major axis</dt><dd id="smaOut">--</dd></div>
+        <div><dt>Orbits / day</dt><dd id="orbitsOut">--</dd></div>
+        <div><dt>Max footprint</dt><dd id="footprintOut">--</dd></div>
+        <div><dt>Eccentricity</dt><dd>0.000</dd></div>
+      </dl>
+      <p class="formula">T = 2π √(a³/μ) · v = √(μ/a) · μ 398 600 km³/s²</p>
+    </section>
+
+    <section class="new-track" aria-labelledby="newHeading">
+      <h2 id="newHeading"><span>03</span> File a new track</h2>
+      <form id="addForm" novalidate>
+        <div class="field">
+          <label for="newName">Object designation</label>
+          <input type="text" id="newName" name="name" maxlength="26" autocomplete="off" placeholder="TIROS-9" required>
+        </div>
+        <div class="field-pair">
+          <div class="field">
+            <label for="newAlt">Altitude <em>km</em></label>
+            <input type="number" id="newAlt" name="alt" min="160" max="40000" step="1" value="820" required>
+          </div>
+          <div class="field">
+            <label for="newInc">Incl. <em>deg</em></label>
+            <input type="number" id="newInc" name="inc" min="0" max="180" step="0.1" value="98.8" required>
+          </div>
+        </div>
+        <p class="form-error" id="formError" role="alert" hidden></p>
+        <button class="btn btn-ink" type="submit">Track object</button>
+      </form>
+    </section>
+  </aside>
+
+  <section class="roster" aria-labelledby="rosterHeading">
+    <div class="panel-head">
+      <h2 id="rosterHeading"><span>04</span> Tracked objects</h2>
+      <p class="panel-note"><span id="rosterCount">00</span> ON FILE</p>
+    </div>
+    <ul id="objectList" class="object-list"></ul>
+    <p class="roster-note">Select a row to load its solution. Altitude and inclination sliders revise the selected track and are written to the desk ledger.</p>
+  </section>
+
+  <section class="passes" aria-labelledby="passesHeading">
+    <div class="panel-head">
+      <h2 id="passesHeading"><span>05</span> Pass schedule</h2>
+      <p class="panel-note" id="passCaption">NEXT SIX CONTACTS · LOCAL</p>
+    </div>
+    <div class="pass-scroll">
+      <table class="pass-table">
+        <thead>
+          <tr>
+            <th scope="col">Pass</th>
+            <th scope="col">Date</th>
+            <th scope="col">AOS</th>
+            <th scope="col">LOS</th>
+            <th scope="col" class="opt">Max el</th>
+            <th scope="col" class="opt">Dur</th>
+          </tr>
+        </thead>
+        <tbody id="passRows"></tbody>
+      </table>
+    </div>
+    <p class="roster-note">AOS / LOS computed from the current circular solution at station 41.2°N. Schedule refreshes each minute.</p>
+  </section>
+
+</section>
+
+<footer class="titleblock">
+  <div class="tb-cell tb-wide"><span>Project</span><strong>ORBITAL / MISSION PLANNING DESK</strong></div>
+  <div class="tb-cell"><span>Originator</span><strong>F.D.B.</strong></div>
+  <div class="tb-cell"><span>Checked</span><strong>W. KESSLER</strong></div>
+  <div class="tb-cell"><span>Date</span><strong>20 OCT 1966</strong></div>
+  <div class="tb-cell"><span>Scale</span><strong>SCHEMATIC</strong></div>
+  <div class="tb-cell"><span>Rev</span><strong>C</strong></div>
+</footer>
+
+</main>
+</div>
+<div id="live" class="sr-only" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>
