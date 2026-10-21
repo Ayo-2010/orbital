@@ -1261,3 +1261,22 @@ input[type="range"]:focus-visible::-moz-range-thumb {
     display: none;
   }
 }
+
+@media print {
+  body * { visibility: hidden; }
+  .schedule-table, .schedule-table * { visibility: visible; }
+  .object-panel, .object-panel * { visibility: visible; }
+  .schedule-table, .object-panel {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 20mm;
+    background: white;
+    box-shadow: none;
+    border: 2px solid var(--ink);
+    color: var(--ink);
+  }
+  .header, .controls, .drawer, .drawer-handle { display: none; }
+  .desk { border: none; box-shadow: none; }
+}
